@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planetarium.Crypto", "Planetarium.Crypto\Planetarium.Crypto.csproj", "{9FA0838A-D920-4588-AA78-BC8235EEA8C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planetarium.CryptoTests", "Planetarium.CryptoTests\Planetarium.CryptoTests.csproj", "{1C00136F-C7F6-4BBA-BE92-F91F556D4732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9FA0838A-D920-4588-AA78-BC8235EEA8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FA0838A-D920-4588-AA78-BC8235EEA8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FA0838A-D920-4588-AA78-BC8235EEA8C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C00136F-C7F6-4BBA-BE92-F91F556D4732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C00136F-C7F6-4BBA-BE92-F91F556D4732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C00136F-C7F6-4BBA-BE92-F91F556D4732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C00136F-C7F6-4BBA-BE92-F91F556D4732}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
