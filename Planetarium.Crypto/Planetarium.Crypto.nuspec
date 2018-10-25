@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Planetarium.Cryptolib</id>
+    <version>1.0.0</version>
+    <title>$title$</title>
+    <authors>Swen Mun</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/planetarium/Planetarium.Crypto</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cryptographic library for .NET Framework 3.5</description>
+    <copyright>Copyright 2018</copyright>
+    <tags>.net35 secp256k1 ECDH AESGCM</tags>
+  </metadata>
+</package>
