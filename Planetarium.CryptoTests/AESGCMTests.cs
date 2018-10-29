@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Planetarium.CryptoTests;
+using Planetarium.Crypto.Extension;
 using System.Text;
 
 namespace Planetarium.Crypto.Encrypt.Tests
