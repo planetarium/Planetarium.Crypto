@@ -1,12 +1,15 @@
-﻿using Org.BouncyCastle.Asn1.Sec;
+﻿using Org.BouncyCastle.Asn1;
+using Org.BouncyCastle.Asn1.Sec;
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Crypto.Signers;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Security;
 using Planetarium.Crypto.Encrypt;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Planetarium.Crypto.Keys
@@ -50,7 +53,7 @@ namespace Planetarium.Crypto.Keys
         {
             get
             {
-                var ecParams = PrivateKey.GetECParameters();
+                var ecParams = GetECParameters();
                 var q = ecParams.G.Multiply(this.keyParam.D);
                 var keyParam = new ECPublicKeyParameters("ECDSA", q, ecParams) as ECPublicKeyParameters;
                 return new PublicKey(keyParam);
@@ -67,15 +70,30 @@ namespace Planetarium.Crypto.Keys
 
         public byte[] Sign(byte[] payload)
         {
-            return Sign(payload, "SHA256withECDSA");
-        }
+            var h = new Sha256Digest();
+            var hashed = new byte[h.GetDigestSize()];
+            h.BlockUpdate(payload, 0, payload.Length);
+            h.DoFinal(hashed, 0);
+            h.Reset();
 
-        public byte[] Sign(byte[] payload, string algorithm)
-        {
-            var signer = SignerUtilities.GetSigner(algorithm);
+            var kCalculator = new HMacDsaKCalculator(h);
+            var signer = new ECDsaSigner(kCalculator);
             signer.Init(true, keyParam);
-            signer.BlockUpdate(payload, 0, payload.Length);
-            return signer.GenerateSignature();
+            var rs = signer.GenerateSignature(hashed);
+            var r = rs[0];
+            var s = rs[1];
+            var otherS = keyParam.Parameters.N.Subtract(s);
+            if (s.CompareTo(otherS) == 1)
+            {
+                s = otherS;
+            }
+
+            var bos = new MemoryStream(72);
+            var seq = new DerSequenceGenerator(bos);
+            seq.AddObject(new DerInteger(r));
+            seq.AddObject(new DerInteger(s));
+            seq.Close();
+            return bos.ToArray();
         }
 
         public byte[] Decrypt(byte[] payload)
